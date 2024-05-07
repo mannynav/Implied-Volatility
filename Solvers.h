@@ -37,13 +37,15 @@ template<typename T> double NewtonRaphson(T& function, double guess, double acc,
 {
 	//we start with the guess
 	double previous_value = guess;
-	double next_value = previous_value - function.eval(previous_value) / function.derivative(previous_value);
+	double next_value = previous_value - (function.eval(previous_value) - target) / function.derivative(previous_value);
 
 
 	while (next_value - previous_value > acc || previous_value - next_value > acc)
 	{
 		previous_value = next_value;
-		next_value = previous_value - function.eval(previous_value) / function.derivative(previous_value);
+		std::cout << next_value << std::endl;
+
+		next_value = previous_value - ((function.eval(previous_value)-target) / function.derivative(previous_value));
 	}
 
 	return next_value;
